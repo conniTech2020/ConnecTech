@@ -17,11 +17,13 @@ export default function App() {
       <Fragment>
         {/* <NavBar /> */}
         <Navbar />
-        {/* <Route exact path="/landing" component={Landing} />  */}
-        <Landing />
+        <Route exact path="/landing" component={Landing} />
+        {/* <Landing /> */}
         <section className="container">
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={Register} />
+          <Switch>
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
+          </Switch>
         </section>
       </Fragment>
     </Router>
