@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, } from 'react-router-dom';
 import { registerUser } from '../api/index';
 // import { connect } from 'react-redux';
 // import { setAlert } from '../../actions/alert';
@@ -9,22 +9,26 @@ import { registerUser } from '../api/index';
 // const Register = ({ setAlert, register, isAuthenticated }) => {
 const Register = () => {
   const [formData, setFormData] = useState({
-    name: '',
+    fullName: '',
     email: '',
     password: '',
     password2: '',
+    status: true,
+    skills: '',
   });
+  const { fullName, email, password, password2, skills } = formData;
 
-  const { name, email, password, password2 } = formData;
+  const onChange = (e) => {
+    const { name, value } = e.target;
 
-  const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [name]: value });
+  };
 
   const makenewuser = async () => {
     try {
       const response = await registerUser(formData);
       console.log('new user created!: ', response);
-      debugger
+      debugger;
     } catch (e) {
       console.error(e);
     }
@@ -56,9 +60,9 @@ const Register = () => {
         <div className='form-group'>
           <input
             type='text'
-            placeholder='Name'
-            name='name'
-            value={name}
+            placeholder='fullName'
+            name='fullName'
+            value={fullName}
             onChange={onChange}
           />
         </div>
@@ -74,6 +78,15 @@ const Register = () => {
             This site uses Gravatar so if you want a profile image, use a
             Gravatar email
           </small>
+        </div>
+        <div className='form-group'>
+          <input
+            type='text'
+            placeholder='skills'
+            name='skills'
+            value={skills}
+            onChange={onChange}
+          />
         </div>
         <div className='form-group'>
           <input

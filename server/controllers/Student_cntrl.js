@@ -11,7 +11,10 @@ const validateLoginInput = [
 ];
 
 const validationChecks = [
-  check('fullName', 'Full Name is required').not().isEmpty().isLength({min: 3}),
+  check('fullName', 'Full Name is required')
+    .not()
+    .isEmpty()
+    .isLength({ min: 3 }),
   check('email', 'Please Include A valid Email').isEmail(),
   check(
     'password',
@@ -29,7 +32,7 @@ const validationChecks = [
 // };
 const CreateUser = async (req, res) => {
   // split to validateInputFunc
- // validateInputFunc(req, res);
+  // validateInputFunc(req, res);
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -64,7 +67,7 @@ const CreateUser = async (req, res) => {
     userFields.skills = skills.split(',').map((skill) => skill.trim());
   }
   try {
-   // console.log(email);
+     console.log(email);
     let user = await User.findOne({ email });
     if (user) {
       return res.status(400).json({ errors: [{ msg: 'User already exists' }] });
@@ -74,7 +77,7 @@ const CreateUser = async (req, res) => {
       r: 'pg',
       d: 'mm',
     });
-    console.log(user);
+    console.log('user: ', user);
     if (userFields.status) {
       const salt = await bcrypt.genSalt(10);
       userFields.password = await bcrypt.hash(password, salt);
