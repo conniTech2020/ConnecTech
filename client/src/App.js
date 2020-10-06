@@ -1,9 +1,9 @@
 import React, { Fragment } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Navbar from "./layout/Navbar";
-import Landing from "./layout/Landing";
-import Login from "./auth/Login";
-import Register from "./auth/Register";
+import Navbar from "./compontes/container/NavBar";
+import Home from "./compontes/container/Home";
+import Login from "./compontes/container/LogIn";
+import Register from "./compontes/container/Register";
 import "./app.css";
 
 // old way
@@ -15,10 +15,9 @@ export default function App() {
   return (
     <Router>
       <Fragment>
-        {/* <NavBar /> */}
         <Navbar />
-        <Route exact path="/landing" component={Landing} />
-        {/* <Landing /> */}
+        <Route exact path="/home" component={Home} />
+        {/* <Home /> */}
         <section className="container">
           <Switch>
             <Route exact path="/login" component={Login} />

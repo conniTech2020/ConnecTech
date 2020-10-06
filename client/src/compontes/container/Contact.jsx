@@ -28,15 +28,6 @@ function Contact() {
             placeholder="052-123-4567"
           />
         </div>
-        {/* <label for="country">Country</label>
-        <div>
-          <select id="country" name="country">
-            <option value="australia">Australia</option>
-            <option value="canada">Canada</option>
-            <option value="usa">USA</option>
-          </select>
-        </div> */}
-
         <input type="submit" value="Submit"></input>
       </form>
     </div>

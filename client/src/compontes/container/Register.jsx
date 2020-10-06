@@ -1,14 +1,9 @@
 import React, { Fragment, useState } from "react";
-// import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
-// import { setAlert } from "../../actions/alert";
-// import { register } from "../../actions/auth";
-// import PropTypes from "prop-types";
-import { insertStudent } from "../api/index";
+import { registerUser } from "../../api/index";
 
-// const Register = ({ setAlert, register, isAuthenticated }) => {
 const Register = () => {
-  const [error, seterror] = useState("");
+  const [error, setError] = useState("");
   const [succeed, setsucceed] = useState("");
   const [formData, setFormData] = useState({
     fullName: "",
@@ -30,7 +25,7 @@ const Register = () => {
     e.preventDefault(); // prevent refresh/reload page
 
     if (password !== password2) {
-      seterror("password are not match!");
+      setError("password are not match!"); //  setError
       // setAlert("Passwords do not match", "danger");
     } else {
       // register({ name, email, password });
@@ -46,9 +41,9 @@ const Register = () => {
     try {
       const response = await insertStudent(formData);
       setsucceed("new user created!");
-      seterror("");
+      setError("");
     } catch (err) {
-      seterror(err.response.data.errors[0].msg);
+      setError(err.response.data.errors[0].msg);
     }
   };
 
@@ -118,15 +113,4 @@ const Register = () => {
   );
 };
 
-// Register.propTypes = {
-//   setAlert: PropTypes.func.isRequired,
-//   register: PropTypes.func.isRequired,
-//   isAuthenticated: PropTypes.bool,
-// };
-
-// const mapStateToProps = (state) => ({
-//   isAuthenticated: state.auth.isAuthenticated,
-// });
-
-// export default connect(mapStateToProps, { setAlert, register })(Register);
 export default Register;

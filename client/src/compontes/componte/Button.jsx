@@ -13,7 +13,7 @@ const SButton = styled.button`
 `;
 
 function Button(props) {
-  return <SButton>{props.name}</SButton>;
+  return (<SButton>{props.name}</SButton>);
 }
 
 // return(
