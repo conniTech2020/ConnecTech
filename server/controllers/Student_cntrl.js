@@ -20,8 +20,8 @@ const validationChecks = [
     'password',
     'Please enter a password with 6 or more characters'
   ).isLength({ min: 6 }),
-  check('status', 'Status is required').not().isEmpty(),
-  check('skills', 'Please Include at least one skill').not().isEmpty(),
+  // check('status', 'Status is required').not().isEmpty(),
+  // check('skills', 'Please Include at least one skill').not().isEmpty(),
 ];
 
 // const validateInputFunc = (req, res) => {
@@ -77,7 +77,7 @@ const CreateUser = async (req, res) => {
       r: 'pg',
       d: 'mm',
     });
-    console.log('user: ', user);
+    console.log('user: ', userFields);
     if (userFields.status) {
       const salt = await bcrypt.genSalt(10);
       userFields.password = await bcrypt.hash(password, salt);

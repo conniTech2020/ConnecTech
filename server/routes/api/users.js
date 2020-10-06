@@ -28,7 +28,7 @@ router.post('/login', User_Cntrl.validateLoginInput, User_Cntrl.loginUser);
 // @desc     Get all Users
 // @access   Public
 
-router.get('/', User_Cntrl.getAllUsers);
+router.get('/', User_Cntrl.);
 /////////////////////////////////////////////////////////////
 
 
