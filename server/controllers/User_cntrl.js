@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { check, validationResult } = require("express-validator");
 const User = require("../models/User");
+const { use } = require("../routes/api/auth");
 
 const validateLoginInput = [
   check("email", "Please Include A valid Email").isEmail(),
@@ -126,13 +127,19 @@ const loginUser = async (req, res) => {
         id: user.id,
       },
     };
+    console.log('user login', user);
     jwt.sign(
       payload,
       process.env.JWT_SECRET,
       { expiresIn: 36000000000 },
       (err, token) => {
         if (err) throw err;
-        res.json({ token });
+        res.json({ token,
+        user: {
+          id: use.id,
+          email: user.email
+        }
+        });
       }
     );
   } catch (err) {

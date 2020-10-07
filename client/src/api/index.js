@@ -4,6 +4,7 @@ const api = axios.create({
   baseURL: "http://localhost:5000/api",
 });
 export const getAllUsers = () => api.get(`/`);
+
 //export const insertStudent = (payload) => api.post(`/student`, payload);
 export const registerUser = (payload) => {
   debugger;
