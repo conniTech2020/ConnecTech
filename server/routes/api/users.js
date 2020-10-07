@@ -4,7 +4,7 @@ const auth = require('../../middleware/auth');
 // const gravatar = require('gravatar');
 // const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const User_Cntrl = require('../../controllers/Student_cntrl');
+const User_Cntrl = require('../../controllers/User_cntrl');
 //const { json } = require('express');
 
 const User = require('../../models/User');
@@ -28,7 +28,7 @@ router.post('/login', User_Cntrl.validateLoginInput, User_Cntrl.loginUser);
 // @desc     Get all Users
 // @access   Public
 
-router.get('/', User_Cntrl.);
+router.get('/', User_Cntrl.getAllUsers);
 /////////////////////////////////////////////////////////////
 
 

@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
-import { registerUser } from "../api/index";
+import { registerUser } from "../../api/index";
 
 const Register = () => {
   const [error, seterror] = useState("");
@@ -43,7 +43,11 @@ const Register = () => {
       setsucceed("new user created!");
       seterror("");
     } catch (err) {
-      seterror(err.response.formData.errors[0].msg);
+      if (!err.response) {
+        throw err;
+      }
+
+      seterror(err.response.data.errors[0].msg);
     }
   };
 

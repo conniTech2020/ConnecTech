@@ -18,7 +18,9 @@ app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/profile', require('./routes/api/profile'));
 app.use('/api/posts', require('./routes/api/posts'));
-
+//app.use('/api/teacher', require('./routes/api/teacher'));
+//app.use('/api/student', require('./routes/api/student'));
+//app.use('/api/admin', require('./routes/api/admin'));
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => console.log(`server listening on port: ${PORT}`));
