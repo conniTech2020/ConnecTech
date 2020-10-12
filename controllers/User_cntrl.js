@@ -1,25 +1,25 @@
-const express = require("express");
-const gravatar = require("gravatar");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const { check, validationResult } = require("express-validator");
-const User = require("../models/User");
-const { use } = require("../routes/api/auth");
+const express = require('express');
+const gravatar = require('gravatar');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const { check, validationResult } = require('express-validator');
+const User = require('../models/User');
+// const { use } = require("../server/routes/api/auth");
 
 const validateLoginInput = [
-  check("email", "Please Include A valid Email").isEmail(),
-  check("password", "password is required").exists(),
+  check('email', 'Please Include A valid Email').isEmail(),
+  check('password', 'password is required').exists(),
 ];
 
 const validationChecks = [
-  check("fullName", "Full Name is required")
+  check('fullName', 'Full Name is required')
     .not()
     .isEmpty()
     .isLength({ min: 3 }),
-  check("email", "Please Include A valid Email").isEmail(),
+  check('email', 'Please Include A valid Email').isEmail(),
   check(
-    "password",
-    "Please enter a password with 6 or more characters"
+    'password',
+    'Please enter a password with 6 or more characters'
   ).isLength({ min: 6 }),
   // check('status', 'Status is required').not().isEmpty(),
   // check('skills', 'Please Include at least one skill').not().isEmpty(),
@@ -65,20 +65,20 @@ const CreateUser = async (req, res) => {
   if (location) userFields.location = location;
   if (githubusername) userFields.githubusername = githubusername;
   if (skills) {
-    userFields.skills = skills.split(",").map((skill) => skill.trim());
+    userFields.skills = skills.split(',').map((skill) => skill.trim());
   }
   try {
     console.log(email);
     let user = await User.findOne({ email });
     if (user) {
-      return res.status(400).json({ errors: [{ msg: "User already exists" }] });
+      return res.status(400).json({ errors: [{ msg: 'User already exists' }] });
     }
     const avatar = gravatar.url(email, {
-      s: "200",
-      r: "pg",
-      d: "mm",
+      s: '200',
+      r: 'pg',
+      d: 'mm',
     });
-    console.log("user: ", userFields);
+    console.log('user: ', userFields);
     //if (userFields.status) {
     const salt = await bcrypt.genSalt(10);
     userFields.password = await bcrypt.hash(password, salt);
@@ -101,7 +101,7 @@ const CreateUser = async (req, res) => {
     /////////////////////////////////////
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server Error");
+    res.status(500).send('Server Error');
   }
 };
 /////////////////////////////////////////////////////
@@ -115,11 +115,11 @@ const loginUser = async (req, res) => {
   try {
     let user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ errors: [{ msg: "Invalid Credentials" }] });
+      return res.status(400).json({ errors: [{ msg: 'Invalid Credentials' }] });
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ errors: [{ msg: "Invalid Credentials" }] });
+      return res.status(400).json({ errors: [{ msg: 'Invalid Credentials' }] });
     }
 
     const payload = {
@@ -134,17 +134,18 @@ const loginUser = async (req, res) => {
       { expiresIn: 36000000000 },
       (err, token) => {
         if (err) throw err;
-        res.json({ token,
-        user: {
-          id: use.id,
-          email: user.email
-        }
+        res.json({
+          token,
+          user: {
+            id: use.id,
+            email: user.email,
+          },
         });
       }
     );
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server Error");
+    res.status(500).send('Server Error');
   }
 };
 
@@ -152,21 +153,21 @@ const loginUser = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
   try {
-    const users = await User.find().populate("user", ["fullName", "avatar"]);
+    const users = await User.find().populate('user', ['fullName', 'avatar']);
     res.json(users);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server Error");
+    res.status(500).send('Server Error');
   }
 };
 
 const authenticateUser = async (req, res) => {
   try {
-    const user = await User.findById(req.user).select("-password");
+    const user = await User.findById(req.user).select('-password');
     res.json(user);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server Error");
+    res.status(500).send('Server Error');
   }
 };
 

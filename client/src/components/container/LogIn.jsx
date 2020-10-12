@@ -20,7 +20,7 @@ export default function Login() {
     //else - something else
     console.log(email, password);
     const res = await axios.post('/api/users/login', { email, password });
-    localStorage.setItem('authToken',res.data.token)
+    localStorage.setItem('authToken', res.data.token);
     setRedirect(true);
   }
 
